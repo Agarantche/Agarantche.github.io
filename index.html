@@ -9,12 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Visualization & Content Choices: 
-        - Report Info: Technical Skills (Java, Python, etc.) -> Goal: Compare/Inform -> Viz: Radar Chart (Chart.js/Canvas) -> Interaction: Hover for tooltips -> Justification: Provides a quick, visually compelling summary of technical strengths, more engaging than a static list.
-        - Report Info: Project Details -> Goal: Organize/Inform -> Viz: Interactive Cards (HTML/CSS/JS) -> Interaction: Click to toggle detail visibility -> Justification: Keeps the UI clean and focused, encouraging user interaction to explore deeper.
-        - Report Info: Work/Field Experience -> Goal: Show Change/Progression -> Viz: Vertical Timeline (HTML/CSS) -> Interaction: Hover effects for focus -> Justification: Visually demonstrates career progression and separates technical from non-technical roles effectively.
-        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. 
-    -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -32,19 +26,20 @@
             display: block;
             width: 0;
             height: 2px;
-            background: #14b8a6;
+            background: #14b8a6; /* teal-500 */
             transition: width .3s;
         }
         .nav-link:hover::after, .nav-link.active::after {
             width: 100%;
         }
-        .project-card .details {
+        /* Styles for project card details (if you decide to use expand/collapse for Java projects) */
+        .project-card .details { 
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease-out;
         }
         .project-card.open .details {
-            max-height: 500px;
+            max-height: 500px; /* Adjust as needed */
             transition: max-height 0.5s ease-in;
         }
     </style>
@@ -88,6 +83,9 @@
                     <a href="https://www.linkedin.com/in/adam-garantche" target="_blank" class="text-teal-600 hover:text-teal-700 transition-colors">
                         <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                     </a>
+                    <a href="https://github.com/Agarantche" target="_blank" class="text-slate-700 hover:text-slate-900 transition-colors">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
                 </div>
             </div>
         </section>
@@ -111,7 +109,7 @@
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold text-slate-900">Core Concepts</h3>
-                    <p class="text-slate-600 mt-1">OOP, Data Structures</p>
+                    <p class="text-slate-600 mt-1">OOP, Data Structures, Algorithms</p>
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold text-slate-900">Methodologies</h3>
@@ -121,30 +119,80 @@
         </section>
 
         <section id="projects" class="py-20 bg-white rounded-2xl my-20">
-            <h2 class="text-3xl font-bold text-center">Projects & Course Experience</h2>
-            <p class="text-center mt-2 text-slate-600 max-w-2xl mx-auto">A collection of my academic and personal work, demonstrating practical application of my skills. Click on any category to learn more.</p>
-            <div class="mt-12 max-w-4xl mx-auto grid md:grid-cols-1 gap-8">
-                <div class="project-card bg-slate-50 rounded-lg p-6 cursor-pointer border border-transparent hover:border-teal-500 hover:shadow-lg transition-all">
-                    <h3 class="text-xl font-semibold">Programming Projects</h3>
-                    <div class="details">
-                        <ul class="mt-4 space-y-2 list-disc list-inside text-slate-600">
-                            <li>Built 2 functional websites for advisements and questionnaires using JavaScript, HTML, and CSS, applying responsive design principles to optimize user experience.</li>
-                            <li>Developed 3 small games using JavaScript and Python, showcasing a solid understanding of both frontend and backend development.</li>
-                        </ul>
+            <h2 class="text-3xl font-bold text-center">Featured Java Projects</h2>
+            <p class="text-center mt-2 text-slate-600 max-w-2xl mx-auto">A showcase of key Java projects demonstrating my problem-solving and development skills. Explore the code on GitHub.</p>
+            <div class="mt-12 max-w-4xl mx-auto grid md:grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Java Graph Algorithm Toolkit -->
+                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
+                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">Java Graph Algorithm Toolkit</h3>
+                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                        Developed a command-line Java application for analyzing weighted undirected graphs. Implements algorithms for connectivity (DFS), Minimum Spanning Tree (Prim's), shortest paths (Dijkstra's), metric graph transformations, and an approximation for the Traveling Salesman Problem (TSP) using a nearest neighbor heuristic.
+                    </p>
+                    <p class="project-tech-text text-xs text-slate-500 mb-3">
+                        <strong>Technologies:</strong> Java, Graph Theory Algorithms, Data Structures (Adjacency Matrix), File I/O, CLI.
+                    </p>
+                    <div class="mt-auto">
+                        <a href="https://github.com/Agarantche/JavaGraphToolkit" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
                     </div>
                 </div>
-                <div class="project-card bg-slate-50 rounded-lg p-6 cursor-pointer border border-transparent hover:border-teal-500 hover:shadow-lg transition-all">
-                    <h3 class="text-xl font-semibold">SQL Database Management</h3>
-                    <div class="details">
-                        <p class="mt-4 text-slate-600">Created and managed SQL databases as part of a school project to simulate managing a store, implementing data storage solutions and optimizing queries for efficient data retrieval.</p>
+
+                <!-- Java Movie Review Sentiment Analyzer -->
+                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
+                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">Java Movie Review Sentiment Analyzer</h3>
+                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                        Developed a Java application to perform sentiment analysis on text from movie reviews. Builds a sentiment lexicon, filters stop words, and classifies the sentiment of new user-provided phrases using custom data structures like a hash table of Binary Search Trees.
+                    </p>
+                    <p class="project-tech-text text-xs text-slate-500 mb-3">
+                        <strong>Technologies:</strong> Java, Data Structures (BST, Hash Table), Text File Processing, String Manipulation, Basic NLP, CLI.
+                    </p>
+                    <div class="mt-auto">
+                        <a href="https://github.com/Agarantche/JavaSentimentAnalyzer" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
                     </div>
                 </div>
-                <div class="project-card bg-slate-50 rounded-lg p-6 cursor-pointer border border-transparent hover:border-teal-500 hover:shadow-lg transition-all">
-                    <h3 class="text-xl font-semibold">Agile Team Experience</h3>
-                    <div class="details">
-                        <p class="mt-4 text-slate-600">Collaborated in agile teams with classmates, learning the principles of Agile methodology including sprint planning, daily stand-ups, and task delegation, fostering teamwork and communication skills in a fast-paced environment.</p>
+
+                <!-- Java CLI Bitmap Image Processor -->
+                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
+                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">Java CLI Bitmap Image Processor</h3>
+                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                        A command-line tool in Java for loading, processing, and saving 24-bit BMP image files. Supports various manipulations like color inversion, grayscale, blur, mirroring, resizing, and rotation, involving direct BMP file format parsing.
+                    </p>
+                    <p class="project-tech-text text-xs text-slate-500 mb-3">
+                        <strong>Technologies:</strong> Java, File I/O (Binary BMP), Image Processing Algorithms, CLI, OOP.
+                    </p>
+                    <div class="mt-auto">
+                        <a href="https://github.com/Agarantche/JavaBitmapProcessor" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
                     </div>
                 </div>
+
+                <!-- Java Particle Interaction Simulator -->
+                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
+                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">Java Particle Interaction Simulator</h3>
+                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                        A 2D simulator developed in Java modeling interactions between subatomic particles (electrons, protons, neutrons) based on electrostatic forces (Coulomb's Law). Visualizes particle movement using the StdDraw library.
+                    </p>
+                    <p class="project-tech-text text-xs text-slate-500 mb-3">
+                        <strong>Technologies:</strong> Java, OOP, Physics Simulation, StdDraw library.
+                    </p>
+                    <div class="mt-auto">
+                        <a href="https://github.com/Agarantche/JavaParticleSimulator" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+
+                <!-- Java Asteroids Arcade Game -->
+                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
+                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">Java Asteroids Arcade Game</h3>
+                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                        A classic 2D arcade space shooter developed in Java using Swing/AWT. Players control a spaceship to destroy asteroids, featuring dynamic movement, bullet mechanics, and collision detection.
+                    </p>
+                    <p class="project-tech-text text-xs text-slate-500 mb-3">
+                        <strong>Technologies:</strong> Java, Swing/AWT (GUI), Object-Oriented Programming, Event Handling.
+                    </p>
+                    <div class="mt-auto">
+                        <a href="https://github.com/Agarantche/JavaAsteroidsGame" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <!-- End: Java Projects Grid Content -->
             </div>
         </section>
 
@@ -213,7 +261,6 @@
         </div>
     </footer>
 
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -223,9 +270,24 @@
                 mobileMenu.classList.toggle('hidden');
             });
 
-            document.querySelectorAll('#mobile-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
+            document.querySelectorAll('#mobile-menu a, header nav a.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (link.closest('#mobile-menu')) { 
+                        mobileMenu.classList.add('hidden');
+                    }
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        const headerOffset = document.getElementById('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
                 });
             });
 
@@ -236,9 +298,9 @@
                     labels: ['Java', 'Python', 'JavaScript', 'HTML/CSS', 'C', 'SQL'],
                     datasets: [{
                         label: 'Skill Level (Self-Assessed)',
-                        data: [9, 9, 7, 9, 6, 7],
-                        backgroundColor: 'rgba(20, 184, 166, 0.2)',
-                        borderColor: 'rgba(13, 148, 136, 1)',
+                        data: [9, 8, 7, 8, 6, 7], 
+                        backgroundColor: 'rgba(20, 184, 166, 0.2)', 
+                        borderColor: 'rgba(13, 148, 136, 1)', 
                         pointBackgroundColor: 'rgba(13, 148, 136, 1)',
                         pointBorderColor: '#fff',
                         pointHoverBackgroundColor: '#fff',
@@ -249,69 +311,50 @@
                     maintainAspectRatio: false,
                     scales: {
                         r: {
-                            angleLines: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            },
-                            pointLabels: {
-                                font: {
-                                    size: 14,
-                                    family: 'Inter',
-                                },
-                                color: '#334155'
-                            },
-                            ticks: {
-                                beginAtZero: true,
-                                max: 10,
-                                stepSize: 2,
-                                backdropColor: 'rgba(255, 255, 255, 0.75)',
-                                color: '#64748b'
-                            }
+                            angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            pointLabels: { font: { size: 14, family: 'Inter' }, color: '#334155' },
+                            ticks: { beginAtZero: true, max: 10, stepSize: 2, backdropColor: 'rgba(255, 255, 255, 0.75)', color: '#64748b'}
                         }
                     },
                     plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `Level: ${context.raw}/10`;
-                                }
-                            }
-                        }
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: function(context) { return `Level: ${context.raw}/10`; } } }
                     }
                 }
             });
 
             const projectCards = document.querySelectorAll('.project-card');
             projectCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    card.classList.toggle('open');
-                });
+                if (card.querySelector('.details')) { 
+                    card.addEventListener('click', () => {
+                        card.classList.toggle('open');
+                    });
+                }
             });
 
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section[id]');
+            const navLinks = document.querySelectorAll('header nav a.nav-link, #mobile-menu a');
 
-            window.addEventListener('scroll', () => {
+            function updateActiveNavLink() {
                 let current = '';
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
-                    if (pageYOffset >= sectionTop - 68) {
+                    if (pageYOffset >= sectionTop - document.getElementById('header').offsetHeight - 10) { 
                         current = section.getAttribute('id');
                     }
                 });
 
                 navLinks.forEach(link => {
                     link.classList.remove('active');
-                    if (link.getAttribute('href').includes(current)) {
+                    const linkHref = link.getAttribute('href');
+                    if (linkHref && linkHref.substring(1) === current) {
                         link.classList.add('active');
                     }
                 });
-            });
+            }
+            window.addEventListener('scroll', updateActiveNavLink);
+            updateActiveNavLink(); 
             
             document.getElementById('year').textContent = new Date().getFullYear();
         });
