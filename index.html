@@ -77,7 +77,7 @@
                 <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-slate-900">Adam Garantche</h1>
                 <p class="mt-4 text-xl md:text-2xl text-teal-600 font-medium">Aspiring Software Engineer</p>
                 <p class="mt-6 text-lg text-slate-600 max-w-2xl mx-auto">
-                    Highly motivated Computer Science student with a strong foundation in Java, Python, and web development. Eager to apply object-oriented design principles, data structures knowledge, and problem-solving skills to real-world challenges in a software engineering internship. A quick learner and a collaborative team player with experience in Agile environments.
+                    Computer Science student who builds full-stack web apps with React, Next.js, and Node, integrates AI into real products, and digs into data with Python. I enjoy taking an idea from a blank repo to a working, deployed app. Currently seeking a software engineering internship where I can keep shipping and learning alongside a strong team.
                 </p>
                 <div class="mt-8 flex justify-center space-x-4">
                     <a href="https://www.linkedin.com/in/adam-garantche" target="_blank" class="text-teal-600 hover:text-teal-700 transition-colors">
@@ -100,29 +100,91 @@
             </div>
              <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-center max-w-4xl mx-auto">
                 <div>
-                    <h3 class="text-lg font-semibold text-slate-900">Tools & Platforms</h3>
-                    <p class="text-slate-600 mt-1">VS Code, PyCharm, IntelliJ, Git, GitHub</p>
+                    <h3 class="text-lg font-semibold text-slate-900">Frontend</h3>
+                    <p class="text-slate-600 mt-1">React, Next.js, Vite, Tailwind CSS, HTML/CSS</p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold text-slate-900">Databases</h3>
-                    <p class="text-slate-600 mt-1">SQL</p>
+                    <h3 class="text-lg font-semibold text-slate-900">Backend & Data</h3>
+                    <p class="text-slate-600 mt-1">Node.js, Express, Supabase, SQL, pandas, Plotly</p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold text-slate-900">Core Concepts</h3>
-                    <p class="text-slate-600 mt-1">OOP, Data Structures, Algorithms</p>
+                    <h3 class="text-lg font-semibold text-slate-900">AI & APIs</h3>
+                    <p class="text-slate-600 mt-1">OpenAI API, Gmail API, Mapbox, Socket.IO, REST</p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold text-slate-900">Methodologies</h3>
-                    <p class="text-slate-600 mt-1">Agile, Responsive Design</p>
+                    <h3 class="text-lg font-semibold text-slate-900">Tools & Concepts</h3>
+                    <p class="text-slate-600 mt-1">Git, GitHub, VS Code, OOP, Data Structures, Agile</p>
                 </div>
             </div>
         </section>
 
         <section id="projects" class="py-20 bg-white rounded-2xl my-20">
-            <h2 class="text-3xl font-bold text-center">Featured Java Projects</h2>
-            <p class="text-center mt-2 text-slate-600 max-w-2xl mx-auto">A showcase of key Java projects demonstrating my problem-solving and development skills. Explore the code on GitHub.</p>
+            <h2 class="text-3xl font-bold text-center">Featured Projects</h2>
+            <p class="text-center mt-2 text-slate-600 max-w-2xl mx-auto">Full-stack, AI, and data projects I've built end to end. Explore the code on GitHub.</p>
             <div class="mt-12 max-w-4xl mx-auto grid md:grid-cols-1 lg:grid-cols-2 gap-8">
-                
+
+                <!-- MailFlow -->
+                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
+                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">MailFlow &mdash; AI Gmail Assistant</h3>
+                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                        A full-stack AI assistant that fetches unread Gmail messages, analyzes them for category, priority, risk, and action items, and generates copy-ready replies it can save as Gmail drafts (never auto-sending). Includes server-side Google OAuth, a Supabase-backed schema with plan limits, and a zero-config demo mode.
+                    </p>
+                    <p class="project-tech-text text-xs text-slate-500 mb-3">
+                        <strong>Technologies:</strong> Next.js, TypeScript, Tailwind CSS, Supabase, Gmail API, OpenAI API, OAuth.
+                    </p>
+                    <div class="mt-auto">
+                        <a href="https://github.com/Agarantche/MailFlow" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+
+                <!-- DriveScape -->
+                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
+                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">DriveScape &mdash; Scenic Drive Discovery</h3>
+                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                        A location-based app that turns driving into a discovery game, surfacing twisty and scenic routes, nearby landmarks, and check-in mechanics on a full-screen interactive map. Routes and landmarks are rendered as GeoJSON features over a Mapbox map, backed by an Express API.
+                    </p>
+                    <p class="project-tech-text text-xs text-slate-500 mb-3">
+                        <strong>Technologies:</strong> React, Vite, Mapbox GL JS, Node.js, Express, Supabase, GeoJSON.
+                    </p>
+                    <div class="mt-auto">
+                        <a href="https://github.com/Agarantche/DriveScape" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+
+                <!-- Porsche 911 Evolution Analysis -->
+                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
+                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">Porsche 911 Evolution Analysis</h3>
+                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                        An interactive data dashboard exploring 60+ years of Porsche 911 engineering. Loads ~290 variants from a Kaggle dataset, scrapes live Nürburgring lap times, and generates 8 Plotly charts covering performance, efficiency, and the air-cooled to water-cooled transition &mdash; including a LOWESS-smoothed HP/kg timeline.
+                    </p>
+                    <p class="project-tech-text text-xs text-slate-500 mb-3">
+                        <strong>Technologies:</strong> Python, pandas, Plotly, BeautifulSoup, NumPy, thefuzz.
+                    </p>
+                    <div class="mt-auto flex flex-wrap gap-3">
+                        <a href="https://agarantche.github.io/Porsche-data-analysis/" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">Live Demo</a>
+                        <a href="https://github.com/Agarantche/Porsche-data-analysis" class="inline-block bg-white text-teal-600 border border-teal-500 text-sm py-2 px-4 rounded-lg hover:bg-teal-50 transition-colors" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+
+                <!-- PartyFlix -->
+                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
+                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">PartyFlix &mdash; Netflix Watch Party</h3>
+                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                        A Chrome extension that syncs play/pause events so friends can watch the same Netflix title together in real time. Each viewer streams locally on their own account, so it's DRM-safe with no video capture &mdash; just low-latency synchronization over Socket.IO with a host/join room system.
+                    </p>
+                    <p class="project-tech-text text-xs text-slate-500 mb-3">
+                        <strong>Technologies:</strong> React, Vite, Chrome Extension (Manifest V3), Socket.IO, Node.js, Express.
+                    </p>
+                    <div class="mt-auto">
+                        <a href="https://github.com/Agarantche/PartyFlix" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-center mt-20">Java & Coursework Projects</h3>
+            <p class="text-center mt-2 text-slate-600 max-w-2xl mx-auto">Core CS projects in Java demonstrating algorithms, data structures, and object-oriented design.</p>
+            <div class="mt-12 max-w-4xl mx-auto grid md:grid-cols-1 lg:grid-cols-2 gap-8">
+
                 <!-- Java Graph Algorithm Toolkit -->
                 <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
                     <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">Java Graph Algorithm Toolkit</h3>
@@ -295,10 +357,10 @@
             const skillsChart = new Chart(skillsChartCtx, {
                 type: 'radar',
                 data: {
-                    labels: ['Java', 'Python', 'JavaScript', 'HTML/CSS', 'C', 'SQL'],
+                    labels: ['JavaScript / TS', 'React & Next.js', 'Python', 'Java', 'Node.js', 'SQL'],
                     datasets: [{
                         label: 'Skill Level (Self-Assessed)',
-                        data: [9, 8, 7, 8, 6, 7], 
+                        data: [9, 8, 8, 8, 7, 7],
                         backgroundColor: 'rgba(20, 184, 166, 0.2)', 
                         borderColor: 'rgba(13, 148, 136, 1)', 
                         pointBackgroundColor: 'rgba(13, 148, 136, 1)',
