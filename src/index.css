@@ -3,6 +3,7 @@
    paper / ink / cobalt system
 ------------------------------------------------------------------ */
 :root {
+  color-scheme: light;
   --paper: #f6f4ee;
   --ink: #101623;
   --cobalt: #1d46d8;
@@ -15,6 +16,7 @@
 }
 
 [data-theme='dark'] {
+  color-scheme: dark;
   --paper: #0c1220;
   --ink: #eef0f4;
   --cobalt: #3b63f0;
@@ -97,6 +99,12 @@ html.has-custom-cursor * { cursor: none !important; }
 .header .right { display: flex; align-items: center; gap: 1.4rem; }
 .header .clock { font-variant-numeric: tabular-nums; opacity: 0.85; }
 .header .kbd-hint { opacity: 0.5; }
+@media (max-width: 700px) {
+  .header .kbd-hint { display: none; }
+}
+@media (max-width: 560px) {
+  .header .who { display: none; } /* the hero says it louder anyway */
+}
 .theme-toggle {
   width: 30px; height: 30px;
   border-radius: 50%;
@@ -173,6 +181,18 @@ html.has-custom-cursor * { cursor: none !important; }
   margin-right: clamp(1.25rem, 5vw, 8rem);
   margin-top: 0.02em;
 }
+/* mobile: both rows fit with an even inset, no edge-clipping */
+@media (max-width: 640px) {
+  .hero-row-1 {
+    font-size: 18.5vw;
+    margin-left: 3vw;
+  }
+  .hero-row-2 {
+    font-size: 11vw;
+    margin-right: 3vw;
+  }
+}
+
 .hero-canvas {
   position: absolute;
   inset: 0;
@@ -252,6 +272,20 @@ section[data-section] {
 .statement .key { color: var(--ink); font-weight: 560; }
 .statement a.key { color: var(--cobalt); }
 .statement a.key:hover { color: var(--flash); }
+
+.skills-line {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 2.2;
+  opacity: 0.7;
+  max-width: 52em;
+  border-top: 1px solid var(--rule);
+  padding-top: 1.6rem;
+  margin-top: 0.5rem;
+}
+.skills-line .sep { color: var(--cobalt); opacity: 0.9; }
 
 /* ---------------- work ---------------- */
 .work-item {

@@ -3,18 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Adam Garantche</title>
-    <meta name="description" content="Adam Garantche — CS student at Otterbein University building full-stack, AI, and data projects. Seeking software engineering internships." />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='42' fill='%231D46D8'/%3E%3C/svg%3E" />
+    <title>Adam Garantche — CS Student &amp; Builder</title>
+    <meta name="description" content="CS student at Otterbein University building AI-powered web apps — email triage with MailFlow, scenic-drive discovery with DriveScape, and data-driven dashboards." />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Adam Garantche — CS Student &amp; Builder" />
+    <meta property="og:description" content="CS student at Otterbein University building AI-powered web apps — email triage with MailFlow, scenic-drive discovery with DriveScape, and data-driven dashboards." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://agarantche.github.io/" />
+    <meta property="og:image" content="https://agarantche.github.io/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Adam Garantche — CS Student &amp; Builder" />
+    <meta name="twitter:description" content="CS student at Otterbein University building AI-powered web apps." />
+    <meta name="twitter:image" content="https://agarantche.github.io/og.png" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,420;0,9..144,560;1,9..144,340&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <script>
-      // Apply saved theme before first paint to avoid flash
+      // Apply theme before first paint to avoid a flash. Order of truth:
+      // URL param → saved choice → OS preference.
       try {
         var params = new URLSearchParams(location.search);
         var t = params.get('theme') || localStorage.getItem('theme');
-        if (t === 'dark') document.documentElement.dataset.theme = 'dark';
+        if (t !== 'dark' && t !== 'light') {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = t;
       } catch (e) {}
     </script>
   </head>

@@ -20,7 +20,9 @@ export default function Header() {
 
   return (
     <header className="header">
-      <div className="left">Adam Garantche — Columbus, OH</div>
+      <div className="left">
+        <span className="who">Adam Garantche — </span>Columbus, OH
+      </div>
       <div className="right">
         <span className="clock" aria-label="Local time in Columbus, Ohio">
           {time} EST

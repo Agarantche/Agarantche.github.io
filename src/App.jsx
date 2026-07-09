@@ -15,9 +15,15 @@ import CommandPalette from './components/CommandPalette.jsx'
 export default function App() {
   const reduced = useReducedMotion()
   const lenisRef = useRef(null)
-  const [theme, setTheme] = useState(
-    () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
-  )
+  const [theme, setTheme] = useState(() => {
+    const attr = document.documentElement.dataset.theme
+    if (attr === 'dark' || attr === 'light') return attr
+    try {
+      const saved = localStorage.getItem('theme')
+      if (saved === 'dark' || saved === 'light') return saved
+    } catch { /* private mode */ }
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  })
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
