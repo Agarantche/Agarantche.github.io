@@ -3,12 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adam Garantche | Aspiring Software Engineer</title>
+    <title>Adam Garantche | Software Engineer</title>
+    <meta name="description" content="Adam Garantche — Computer Science student building full-stack, AI, and data projects. Seeking software engineering internships.">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -21,6 +34,10 @@
             max-width: 500px;
             max-height: 500px;
         }
+        .nav-link {
+            position: relative;
+            padding-bottom: 2px;
+        }
         .nav-link::after {
             content: '';
             display: block;
@@ -32,292 +49,404 @@
         .nav-link:hover::after, .nav-link.active::after {
             width: 100%;
         }
-        /* Styles for project card details (if you decide to use expand/collapse for Java projects) */
-        .project-card .details { 
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out;
+        /* Scroll-entrance reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .6s ease-out, transform .6s ease-out;
         }
-        .project-card.open .details {
-            max-height: 500px; /* Adjust as needed */
-            transition: max-height 0.5s ease-in;
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+        /* Visible keyboard focus */
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid #0d9488;
+            outline-offset: 3px;
+            border-radius: 4px;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="bg-slate-50 text-slate-800 antialiased">
 
-    <header id="header" class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#about" class="text-xl font-bold text-teal-600">Adam Garantche</a>
-            <div class="hidden md:flex space-x-8">
-                <a href="#about" class="nav-link active">About</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#experience" class="nav-link">Experience</a>
-                <a href="#education" class="nav-link">Education</a>
+    <header id="header" class="bg-white/80 backdrop-blur-md border-b border-slate-200/60 sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#about" class="text-lg font-display font-bold text-slate-900 tracking-tight">Adam<span class="text-teal-600">.</span></a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                <a href="#about" class="nav-link active hover:text-slate-900 transition-colors">About</a>
+                <a href="#skills" class="nav-link hover:text-slate-900 transition-colors">Skills</a>
+                <a href="#projects" class="nav-link hover:text-slate-900 transition-colors">Projects</a>
+                <a href="#experience" class="nav-link hover:text-slate-900 transition-colors">Experience</a>
+                <a href="#education" class="nav-link hover:text-slate-900 transition-colors">Education</a>
             </div>
-            <a href="mailto:adamgarantche612@gmail.com" class="hidden md:block bg-teal-500 text-white py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors">Contact Me</a>
-            <button id="mobile-menu-button" class="md:hidden text-slate-800 focus:outline-none">
+            <a href="mailto:adamgarantche612@gmail.com" class="hidden md:inline-flex items-center bg-slate-900 text-white text-sm font-medium py-2.5 px-5 rounded-full hover:bg-teal-600 transition-colors duration-300">Contact Me</a>
+            <button id="mobile-menu-button" class="md:hidden text-slate-800 p-2 -mr-2 focus:outline-none" aria-label="Toggle navigation menu" aria-expanded="false">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
-        <div id="mobile-menu" class="hidden md:hidden">
-            <a href="#about" class="block py-2 px-4 text-sm hover:bg-slate-100">About</a>
-            <a href="#skills" class="block py-2 px-4 text-sm hover:bg-slate-100">Skills</a>
-            <a href="#projects" class="block py-2 px-4 text-sm hover:bg-slate-100">Projects</a>
-            <a href="#experience" class="block py-2 px-4 text-sm hover:bg-slate-100">Experience</a>
-            <a href="#education" class="block py-2 px-4 text-sm hover:bg-slate-100">Education</a>
-            <a href="mailto:adamgarantche612@gmail.com" class="block py-2 px-4 text-sm bg-teal-50 text-teal-600">Contact Me</a>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-100">
+            <a href="#about" class="block py-3 px-6 text-sm font-medium hover:bg-slate-50">About</a>
+            <a href="#skills" class="block py-3 px-6 text-sm font-medium hover:bg-slate-50">Skills</a>
+            <a href="#projects" class="block py-3 px-6 text-sm font-medium hover:bg-slate-50">Projects</a>
+            <a href="#experience" class="block py-3 px-6 text-sm font-medium hover:bg-slate-50">Experience</a>
+            <a href="#education" class="block py-3 px-6 text-sm font-medium hover:bg-slate-50">Education</a>
+            <a href="mailto:adamgarantche612@gmail.com" class="block py-3 px-6 text-sm font-medium bg-teal-50 text-teal-700">Contact Me</a>
         </div>
     </header>
 
     <main class="container mx-auto px-6">
-        <section id="about" class="min-h-screen flex items-center py-20">
+        <section id="about" class="relative min-h-[90vh] flex items-center py-20">
+            <!-- Decorative background glow -->
+            <div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true">
+                <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[36rem] h-[36rem] bg-teal-100/60 rounded-full blur-3xl"></div>
+            </div>
             <div class="max-w-4xl mx-auto text-center">
-                <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-slate-900">Adam Garantche</h1>
-                <p class="mt-4 text-xl md:text-2xl text-teal-600 font-medium">Aspiring Software Engineer</p>
-                <p class="mt-6 text-lg text-slate-600 max-w-2xl mx-auto">
+                <span class="inline-flex items-center gap-2 bg-white border border-slate-200 text-slate-600 text-sm font-medium px-4 py-1.5 rounded-full shadow-sm">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                    </span>
+                    Open to software engineering internships
+                </span>
+                <h1 class="mt-8 text-5xl md:text-7xl font-display font-bold tracking-tight text-slate-900">Adam Garantche</h1>
+                <p class="mt-4 text-xl md:text-2xl text-teal-600 font-display font-medium">Aspiring Software Engineer</p>
+                <p class="mt-6 text-lg leading-relaxed text-slate-600 max-w-2xl mx-auto">
                     Computer Science student who builds full-stack web apps with React, Next.js, and Node, integrates AI into real products, and digs into data with Python. I enjoy taking an idea from a blank repo to a working, deployed app. Currently seeking a software engineering internship where I can keep shipping and learning alongside a strong team.
                 </p>
-                <div class="mt-8 flex justify-center space-x-4">
-                    <a href="https://www.linkedin.com/in/adam-garantche" target="_blank" class="text-teal-600 hover:text-teal-700 transition-colors">
-                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                <div class="mt-10 flex flex-wrap justify-center items-center gap-4">
+                    <a href="#projects" class="bg-teal-600 text-white font-medium py-3 px-7 rounded-full hover:bg-teal-700 shadow-lg shadow-teal-600/20 transition-all duration-300 hover:-translate-y-0.5">View Projects</a>
+                    <a href="https://github.com/Agarantche" target="_blank" rel="noopener" class="bg-white text-slate-800 font-medium py-3 px-7 rounded-full border border-slate-200 hover:border-slate-300 shadow-sm transition-all duration-300 hover:-translate-y-0.5">GitHub</a>
+                </div>
+                <div class="mt-10 flex justify-center space-x-5">
+                    <a href="https://www.linkedin.com/in/adam-garantche" target="_blank" rel="noopener" aria-label="LinkedIn profile" class="text-slate-400 hover:text-teal-600 transition-colors">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                     </a>
-                    <a href="https://github.com/Agarantche" target="_blank" class="text-slate-700 hover:text-slate-900 transition-colors">
-                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <a href="https://github.com/Agarantche" target="_blank" rel="noopener" aria-label="GitHub profile" class="text-slate-400 hover:text-slate-900 transition-colors">
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                     </a>
                 </div>
             </div>
         </section>
 
-        <section id="skills" class="py-20">
-            <h2 class="text-3xl font-bold text-center">Technical Skills</h2>
-            <p class="text-center mt-2 text-slate-600 max-w-2xl mx-auto">This chart provides a visual representation of my comfort and experience level across key technologies. I am always learning and expanding this skillset.</p>
-            <div class="mt-12">
+        <section id="skills" class="py-24">
+            <div class="text-center reveal">
+                <span class="text-sm font-semibold uppercase tracking-widest text-teal-600">Skills</span>
+                <h2 class="mt-2 text-3xl md:text-4xl font-display font-bold text-slate-900">Technical Skills</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">A visual snapshot of my comfort level across key technologies. Always learning, always expanding.</p>
+            </div>
+            <div class="mt-12 reveal">
                 <div class="chart-container">
-                    <canvas id="skillsChart"></canvas>
+                    <canvas id="skillsChart" role="img" aria-label="Radar chart of self-assessed skill levels: JavaScript and TypeScript 9, React and Next.js 8, Python 8, Java 8, Node.js 7, SQL 7 out of 10."></canvas>
                 </div>
             </div>
-             <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-center max-w-4xl mx-auto">
-                <div>
-                    <h3 class="text-lg font-semibold text-slate-900">Frontend</h3>
-                    <p class="text-slate-600 mt-1">React, Next.js, Vite, Tailwind CSS, HTML/CSS</p>
+             <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto reveal">
+                <div class="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm">
+                    <h3 class="font-display font-semibold text-slate-900">Frontend</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mt-2">React, Next.js, Vite, Tailwind CSS, HTML/CSS</p>
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold text-slate-900">Backend & Data</h3>
-                    <p class="text-slate-600 mt-1">Node.js, Express, Supabase, SQL, pandas, Plotly</p>
+                <div class="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm">
+                    <h3 class="font-display font-semibold text-slate-900">Backend &amp; Data</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mt-2">Node.js, Express, Supabase, SQL, pandas, Plotly</p>
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold text-slate-900">AI & APIs</h3>
-                    <p class="text-slate-600 mt-1">OpenAI API, Gmail API, Mapbox, Socket.IO, REST</p>
+                <div class="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm">
+                    <h3 class="font-display font-semibold text-slate-900">AI &amp; APIs</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mt-2">OpenAI API, Gmail API, Mapbox, Socket.IO, REST</p>
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold text-slate-900">Tools & Concepts</h3>
-                    <p class="text-slate-600 mt-1">Git, GitHub, VS Code, OOP, Data Structures, Agile</p>
+                <div class="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm">
+                    <h3 class="font-display font-semibold text-slate-900">Tools &amp; Concepts</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mt-2">Git, GitHub, VS Code, OOP, Data Structures, Agile</p>
                 </div>
             </div>
         </section>
 
-        <section id="projects" class="py-20 bg-white rounded-2xl my-20">
-            <h2 class="text-3xl font-bold text-center">Featured Projects</h2>
-            <p class="text-center mt-2 text-slate-600 max-w-2xl mx-auto">Full-stack, AI, and data projects I've built end to end. Explore the code on GitHub.</p>
-            <div class="mt-12 max-w-4xl mx-auto grid md:grid-cols-1 lg:grid-cols-2 gap-8">
+        <section id="projects" class="py-24">
+            <div class="text-center reveal">
+                <span class="text-sm font-semibold uppercase tracking-widest text-teal-600">Work</span>
+                <h2 class="mt-2 text-3xl md:text-4xl font-display font-bold text-slate-900">Featured Projects</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">Full-stack, AI, and data projects I've built end to end. Explore the code on GitHub.</p>
+            </div>
+            <div class="mt-14 max-w-5xl mx-auto grid md:grid-cols-1 lg:grid-cols-2 gap-6">
 
                 <!-- MailFlow -->
-                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
-                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">MailFlow &mdash; AI Gmail Assistant</h3>
-                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                <div class="project-card reveal group bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-teal-300 transition-all duration-300 flex flex-col">
+                    <h3 class="text-xl font-display font-semibold text-slate-900 mb-3">MailFlow — AI Gmail Assistant</h3>
+                    <p class="text-sm leading-relaxed text-slate-600 mb-5 flex-grow">
                         A full-stack AI assistant that fetches unread Gmail messages, analyzes them for category, priority, risk, and action items, and generates copy-ready replies it can save as Gmail drafts (never auto-sending). Includes server-side Google OAuth, a Supabase-backed schema with plan limits, and a zero-config demo mode.
                     </p>
-                    <p class="project-tech-text text-xs text-slate-500 mb-3">
-                        <strong>Technologies:</strong> Next.js, TypeScript, Tailwind CSS, Supabase, Gmail API, OpenAI API, OAuth.
-                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Next.js</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">TypeScript</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Supabase</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Gmail API</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">OpenAI</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">OAuth</span>
+                    </div>
                     <div class="mt-auto">
-                        <a href="https://github.com/Agarantche/MailFlow" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
+                        <a href="https://github.com/Agarantche/MailFlow" class="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors" target="_blank" rel="noopener">
+                            View on GitHub
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
                     </div>
                 </div>
 
                 <!-- DriveScape -->
-                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
-                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">DriveScape &mdash; Scenic Drive Discovery</h3>
-                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                <div class="project-card reveal group bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-teal-300 transition-all duration-300 flex flex-col">
+                    <h3 class="text-xl font-display font-semibold text-slate-900 mb-3">DriveScape — Scenic Drive Discovery</h3>
+                    <p class="text-sm leading-relaxed text-slate-600 mb-5 flex-grow">
                         A location-based app that turns driving into a discovery game, surfacing twisty and scenic routes, nearby landmarks, and check-in mechanics on a full-screen interactive map. Routes and landmarks are rendered as GeoJSON features over a Mapbox map, backed by an Express API.
                     </p>
-                    <p class="project-tech-text text-xs text-slate-500 mb-3">
-                        <strong>Technologies:</strong> React, Vite, Mapbox GL JS, Node.js, Express, Supabase, GeoJSON.
-                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">React</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Vite</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Mapbox GL</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Node.js</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Express</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Supabase</span>
+                    </div>
                     <div class="mt-auto">
-                        <a href="https://github.com/Agarantche/DriveScape" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
+                        <a href="https://github.com/Agarantche/DriveScape" class="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors" target="_blank" rel="noopener">
+                            View on GitHub
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Porsche 911 Evolution Analysis -->
-                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
-                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">Porsche 911 Evolution Analysis</h3>
-                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
-                        An interactive data dashboard exploring 60+ years of Porsche 911 engineering. Loads ~290 variants from a Kaggle dataset, scrapes live Nürburgring lap times, and generates 8 Plotly charts covering performance, efficiency, and the air-cooled to water-cooled transition &mdash; including a LOWESS-smoothed HP/kg timeline.
+                <div class="project-card reveal group bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-teal-300 transition-all duration-300 flex flex-col">
+                    <h3 class="text-xl font-display font-semibold text-slate-900 mb-3">Porsche 911 Evolution Analysis</h3>
+                    <p class="text-sm leading-relaxed text-slate-600 mb-5 flex-grow">
+                        An interactive data dashboard exploring 60+ years of Porsche 911 engineering. Loads ~290 variants from a Kaggle dataset, scrapes live Nürburgring lap times, and generates 8 Plotly charts covering performance, efficiency, and the air-cooled to water-cooled transition — including a LOWESS-smoothed HP/kg timeline.
                     </p>
-                    <p class="project-tech-text text-xs text-slate-500 mb-3">
-                        <strong>Technologies:</strong> Python, pandas, Plotly, BeautifulSoup, NumPy, thefuzz.
-                    </p>
-                    <div class="mt-auto flex flex-wrap gap-3">
-                        <a href="https://agarantche.github.io/Porsche-data-analysis/" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">Live Demo</a>
-                        <a href="https://github.com/Agarantche/Porsche-data-analysis" class="inline-block bg-white text-teal-600 border border-teal-500 text-sm py-2 px-4 rounded-lg hover:bg-teal-50 transition-colors" target="_blank">View on GitHub</a>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Python</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">pandas</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Plotly</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">BeautifulSoup</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">NumPy</span>
+                    </div>
+                    <div class="mt-auto flex flex-wrap items-center gap-5">
+                        <a href="https://agarantche.github.io/Porsche-data-analysis/" class="inline-flex items-center gap-1.5 bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-full hover:bg-teal-700 transition-colors" target="_blank" rel="noopener">Live Demo</a>
+                        <a href="https://github.com/Agarantche/Porsche-data-analysis" class="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors" target="_blank" rel="noopener">
+                            View on GitHub
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
                     </div>
                 </div>
 
                 <!-- PartyFlix -->
-                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
-                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">PartyFlix &mdash; Netflix Watch Party</h3>
-                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
-                        A Chrome extension that syncs play/pause events so friends can watch the same Netflix title together in real time. Each viewer streams locally on their own account, so it's DRM-safe with no video capture &mdash; just low-latency synchronization over Socket.IO with a host/join room system.
+                <div class="project-card reveal group bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-teal-300 transition-all duration-300 flex flex-col">
+                    <h3 class="text-xl font-display font-semibold text-slate-900 mb-3">PartyFlix — Netflix Watch Party</h3>
+                    <p class="text-sm leading-relaxed text-slate-600 mb-5 flex-grow">
+                        A Chrome extension that syncs play/pause events so friends can watch the same Netflix title together in real time. Each viewer streams locally on their own account, so it's DRM-safe with no video capture — just low-latency synchronization over Socket.IO with a host/join room system.
                     </p>
-                    <p class="project-tech-text text-xs text-slate-500 mb-3">
-                        <strong>Technologies:</strong> React, Vite, Chrome Extension (Manifest V3), Socket.IO, Node.js, Express.
-                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">React</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Vite</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Manifest V3</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Socket.IO</span>
+                        <span class="text-xs font-medium bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Express</span>
+                    </div>
                     <div class="mt-auto">
-                        <a href="https://github.com/Agarantche/PartyFlix" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
+                        <a href="https://github.com/Agarantche/PartyFlix" class="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors" target="_blank" rel="noopener">
+                            View on GitHub
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <h3 class="text-2xl font-bold text-center mt-20">Java & Coursework Projects</h3>
-            <p class="text-center mt-2 text-slate-600 max-w-2xl mx-auto">Core CS projects in Java demonstrating algorithms, data structures, and object-oriented design.</p>
-            <div class="mt-12 max-w-4xl mx-auto grid md:grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="text-center mt-24 reveal">
+                <h3 class="text-2xl md:text-3xl font-display font-bold text-slate-900">Java &amp; Coursework Projects</h3>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">Core CS projects in Java demonstrating algorithms, data structures, and object-oriented design.</p>
+            </div>
+            <div class="mt-12 max-w-5xl mx-auto grid md:grid-cols-1 lg:grid-cols-2 gap-6">
 
                 <!-- Java Graph Algorithm Toolkit -->
-                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
-                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">Java Graph Algorithm Toolkit</h3>
-                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                <div class="project-card reveal group bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-teal-300 transition-all duration-300 flex flex-col">
+                    <h3 class="text-lg font-display font-semibold text-slate-900 mb-3">Java Graph Algorithm Toolkit</h3>
+                    <p class="text-sm leading-relaxed text-slate-600 mb-5 flex-grow">
                         Developed a command-line Java application for analyzing weighted undirected graphs. Implements algorithms for connectivity (DFS), Minimum Spanning Tree (Prim's), shortest paths (Dijkstra's), metric graph transformations, and an approximation for the Traveling Salesman Problem (TSP) using a nearest neighbor heuristic.
                     </p>
-                    <p class="project-tech-text text-xs text-slate-500 mb-3">
-                        <strong>Technologies:</strong> Java, Graph Theory Algorithms, Data Structures (Adjacency Matrix), File I/O, CLI.
-                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">Java</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">Graph Algorithms</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">Data Structures</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">CLI</span>
+                    </div>
                     <div class="mt-auto">
-                        <a href="https://github.com/Agarantche/JavaGraphToolkit" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
+                        <a href="https://github.com/Agarantche/JavaGraphToolkit" class="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors" target="_blank" rel="noopener">
+                            View on GitHub
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Java Movie Review Sentiment Analyzer -->
-                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
-                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">Java Movie Review Sentiment Analyzer</h3>
-                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                <div class="project-card reveal group bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-teal-300 transition-all duration-300 flex flex-col">
+                    <h3 class="text-lg font-display font-semibold text-slate-900 mb-3">Java Movie Review Sentiment Analyzer</h3>
+                    <p class="text-sm leading-relaxed text-slate-600 mb-5 flex-grow">
                         Developed a Java application to perform sentiment analysis on text from movie reviews. Builds a sentiment lexicon, filters stop words, and classifies the sentiment of new user-provided phrases using custom data structures like a hash table of Binary Search Trees.
                     </p>
-                    <p class="project-tech-text text-xs text-slate-500 mb-3">
-                        <strong>Technologies:</strong> Java, Data Structures (BST, Hash Table), Text File Processing, String Manipulation, Basic NLP, CLI.
-                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">Java</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">BST + Hash Table</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">NLP Basics</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">CLI</span>
+                    </div>
                     <div class="mt-auto">
-                        <a href="https://github.com/Agarantche/JavaSentimentAnalyzer" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
+                        <a href="https://github.com/Agarantche/JavaSentimentAnalyzer" class="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors" target="_blank" rel="noopener">
+                            View on GitHub
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Java CLI Bitmap Image Processor -->
-                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
-                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">Java CLI Bitmap Image Processor</h3>
-                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                <div class="project-card reveal group bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-teal-300 transition-all duration-300 flex flex-col">
+                    <h3 class="text-lg font-display font-semibold text-slate-900 mb-3">Java CLI Bitmap Image Processor</h3>
+                    <p class="text-sm leading-relaxed text-slate-600 mb-5 flex-grow">
                         A command-line tool in Java for loading, processing, and saving 24-bit BMP image files. Supports various manipulations like color inversion, grayscale, blur, mirroring, resizing, and rotation, involving direct BMP file format parsing.
                     </p>
-                    <p class="project-tech-text text-xs text-slate-500 mb-3">
-                        <strong>Technologies:</strong> Java, File I/O (Binary BMP), Image Processing Algorithms, CLI, OOP.
-                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">Java</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">Binary File I/O</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">Image Processing</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">OOP</span>
+                    </div>
                     <div class="mt-auto">
-                        <a href="https://github.com/Agarantche/JavaBitmapProcessor" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
+                        <a href="https://github.com/Agarantche/JavaBitmapProcessor" class="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors" target="_blank" rel="noopener">
+                            View on GitHub
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Java Particle Interaction Simulator -->
-                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
-                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">Java Particle Interaction Simulator</h3>
-                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                <div class="project-card reveal group bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-teal-300 transition-all duration-300 flex flex-col">
+                    <h3 class="text-lg font-display font-semibold text-slate-900 mb-3">Java Particle Interaction Simulator</h3>
+                    <p class="text-sm leading-relaxed text-slate-600 mb-5 flex-grow">
                         A 2D simulator developed in Java modeling interactions between subatomic particles (electrons, protons, neutrons) based on electrostatic forces (Coulomb's Law). Visualizes particle movement using the StdDraw library.
                     </p>
-                    <p class="project-tech-text text-xs text-slate-500 mb-3">
-                        <strong>Technologies:</strong> Java, OOP, Physics Simulation, StdDraw library.
-                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">Java</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">Physics Simulation</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">StdDraw</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">OOP</span>
+                    </div>
                     <div class="mt-auto">
-                        <a href="https://github.com/Agarantche/JavaParticleSimulator" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
+                        <a href="https://github.com/Agarantche/JavaParticleSimulator" class="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors" target="_blank" rel="noopener">
+                            View on GitHub
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Java Asteroids Arcade Game -->
-                <div class="project-card bg-slate-50 rounded-lg p-6 border border-slate-200 hover:border-teal-500 hover:shadow-lg transition-all flex flex-col">
-                    <h3 class="project-title-text text-xl font-semibold text-slate-900 mb-2">Java Asteroids Arcade Game</h3>
-                    <p class="project-description-text text-sm text-slate-600 mb-3 flex-grow">
+                <div class="project-card reveal group bg-white rounded-2xl p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-teal-300 transition-all duration-300 flex flex-col">
+                    <h3 class="text-lg font-display font-semibold text-slate-900 mb-3">Java Asteroids Arcade Game</h3>
+                    <p class="text-sm leading-relaxed text-slate-600 mb-5 flex-grow">
                         A classic 2D arcade space shooter developed in Java using Swing/AWT. Players control a spaceship to destroy asteroids, featuring dynamic movement, bullet mechanics, and collision detection.
                     </p>
-                    <p class="project-tech-text text-xs text-slate-500 mb-3">
-                        <strong>Technologies:</strong> Java, Swing/AWT (GUI), Object-Oriented Programming, Event Handling.
-                    </p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">Java</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">Swing/AWT</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">Event Handling</span>
+                        <span class="text-xs font-medium bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">OOP</span>
+                    </div>
                     <div class="mt-auto">
-                        <a href="https://github.com/Agarantche/JavaAsteroidsGame" class="inline-block bg-teal-500 text-white text-sm py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors" target="_blank">View on GitHub</a>
+                        <a href="https://github.com/Agarantche/JavaAsteroidsGame" class="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-600 hover:text-teal-700 transition-colors" target="_blank" rel="noopener">
+                            View on GitHub
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
                     </div>
                 </div>
-                <!-- End: Java Projects Grid Content -->
             </div>
         </section>
 
-        <section id="experience" class="py-20">
-            <h2 class="text-3xl font-bold text-center">Experience</h2>
-             <p class="text-center mt-2 text-slate-600 max-w-2xl mx-auto">My professional journey, highlighting my growth in technical and collaborative roles.</p>
-            <div class="mt-12 max-w-3xl mx-auto">
-                <div class="relative border-l-2 border-teal-200">
-                    <div class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-teal-200 rounded-full -left-3 ring-8 ring-white">
-                            <svg class="w-3 h-3 text-teal-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+        <section id="experience" class="py-24">
+            <div class="text-center reveal">
+                <span class="text-sm font-semibold uppercase tracking-widest text-teal-600">Experience</span>
+                <h2 class="mt-2 text-3xl md:text-4xl font-display font-bold text-slate-900">Where I've Worked</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">My professional journey, highlighting my growth in technical and collaborative roles.</p>
+            </div>
+            <div class="mt-14 max-w-3xl mx-auto reveal">
+                <div class="relative border-l-2 border-teal-200 ml-3">
+                    <div class="mb-12 ml-8">
+                        <span class="absolute flex items-center justify-center w-7 h-7 bg-teal-100 rounded-full -left-[15px] ring-8 ring-slate-50">
+                            <svg class="w-3.5 h-3.5 text-teal-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
                         </span>
-                        <h3 class="flex items-center mb-1 text-lg font-semibold text-slate-900">ITS Helpdesk Student Assistant<span class="bg-teal-100 text-teal-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded ml-3">Present</span></h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-slate-500">Otterbein University | Jan 2024 - Present</time>
-                        <ul class="list-disc list-inside text-slate-600 space-y-1">
+                        <h3 class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-1 text-lg font-display font-semibold text-slate-900">ITS Helpdesk Student Assistant<span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2.5 py-1 rounded-full">Present</span></h3>
+                        <time class="block mb-3 text-sm font-medium text-slate-500">Otterbein University · Jan 2024 – Present</time>
+                        <ul class="list-disc list-inside text-slate-600 text-[15px] leading-relaxed space-y-1.5">
                             <li>Provide technical support to students and faculty, helping troubleshoot hardware and software issues.</li>
                             <li>Assist with setting up and maintaining campus computer labs and classroom technology.</li>
                             <li>Provide on-demand support to resolve technical issues during live classes and campus events.</li>
                             <li>Manage software updates and maintenance for university computers and laptops.</li>
                         </ul>
                     </div>
-                    <div class="mb-10 ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-slate-200 rounded-full -left-3 ring-8 ring-white">
-                            <svg class="w-3 h-3 text-slate-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                    <div class="mb-12 ml-8">
+                        <span class="absolute flex items-center justify-center w-7 h-7 bg-slate-200 rounded-full -left-[15px] ring-8 ring-slate-50">
+                            <svg class="w-3.5 h-3.5 text-slate-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
                         </span>
-                        <h3 class="mb-1 text-lg font-semibold text-slate-900">Team Member</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-slate-500">Taco Bell | Dec 2022 - Jun 2023</time>
-                        <p class="text-base font-normal text-slate-600">Collaborated with a team to meet daily sales goals and improve customer wait times while providing fast and friendly service.</p>
+                        <h3 class="mb-1 text-lg font-display font-semibold text-slate-900">Team Member</h3>
+                        <time class="block mb-3 text-sm font-medium text-slate-500">Taco Bell · Dec 2022 – Jun 2023</time>
+                        <p class="text-slate-600 text-[15px] leading-relaxed">Collaborated with a team to meet daily sales goals and improve customer wait times while providing fast and friendly service.</p>
                     </div>
-                    <div class="ml-6">
-                        <span class="absolute flex items-center justify-center w-6 h-6 bg-slate-200 rounded-full -left-3 ring-8 ring-white">
-                            <svg class="w-3 h-3 text-slate-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                    <div class="ml-8">
+                        <span class="absolute flex items-center justify-center w-7 h-7 bg-slate-200 rounded-full -left-[15px] ring-8 ring-slate-50">
+                            <svg class="w-3.5 h-3.5 text-slate-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
                         </span>
-                        <h3 class="mb-1 text-lg font-semibold text-slate-900">Part-Time Cook</h3>
-                        <time class="block mb-2 text-sm font-normal leading-none text-slate-500">McDonalds | Dec 2021 - May 2022</time>
-                        <p class="text-base font-normal text-slate-600">Prepared food with speed and accuracy during peak hours, demonstrating a strong work ethic and maintaining a clean and organized kitchen.</p>
+                        <h3 class="mb-1 text-lg font-display font-semibold text-slate-900">Part-Time Cook</h3>
+                        <time class="block mb-3 text-sm font-medium text-slate-500">McDonalds · Dec 2021 – May 2022</time>
+                        <p class="text-slate-600 text-[15px] leading-relaxed">Prepared food with speed and accuracy during peak hours, demonstrating a strong work ethic and maintaining a clean and organized kitchen.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="education" class="py-20">
-            <h2 class="text-3xl font-bold text-center">Education</h2>
-            <div class="mt-12 max-w-2xl mx-auto bg-white rounded-2xl shadow-md p-8">
-                <h3 class="text-xl font-bold text-slate-900">Otterbein University, Westerville, Ohio</h3>
-                <p class="mt-1 text-lg text-teal-600">Bachelor of Science in Computer Science</p>
+        <section id="education" class="py-24">
+            <div class="text-center reveal">
+                <span class="text-sm font-semibold uppercase tracking-widest text-teal-600">Education</span>
+                <h2 class="mt-2 text-3xl md:text-4xl font-display font-bold text-slate-900">Education</h2>
+            </div>
+            <div class="mt-12 max-w-2xl mx-auto bg-white rounded-2xl border border-slate-200/80 shadow-sm p-8 md:p-10 reveal">
+                <h3 class="text-xl font-display font-bold text-slate-900">Otterbein University, Westerville, Ohio</h3>
+                <p class="mt-2 text-lg text-teal-600 font-medium">Bachelor of Science in Computer Science</p>
                 <p class="mt-1 text-slate-500">Expected Graduation: May 2027</p>
-                <div class="mt-4 pt-4 border-t border-slate-200">
-                    <h4 class="font-semibold">Relevant Coursework:</h4>
-                    <p class="text-slate-600 mt-2">Object-Oriented Design, Data Structures, Computing in Python, Computer Systems, Discrete Mathematics, Linear Algebra, Calculus I</p>
+                <div class="mt-6 pt-6 border-t border-slate-200">
+                    <h4 class="font-semibold text-slate-900">Relevant Coursework</h4>
+                    <p class="text-slate-600 leading-relaxed mt-2">Object-Oriented Design, Data Structures, Computing in Python, Computer Systems, Discrete Mathematics, Linear Algebra, Calculus I</p>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="bg-slate-800 text-white mt-20">
-        <div class="container mx-auto px-6 py-8 text-center">
-            <p class="text-2xl font-bold">Let's Connect</p>
-            <p class="mt-2 text-slate-300">I'm actively seeking Software Engineering internship opportunities and would love to hear from you.</p>
-            <div class="mt-4">
-                <a href="mailto:adamgarantche612@gmail.com" class="text-teal-400 hover:text-teal-300 transition-colors text-lg">adamgarantche612@gmail.com</a>
+    <footer class="bg-slate-900 text-white mt-24">
+        <div class="container mx-auto px-6 py-16 text-center">
+            <p class="text-3xl font-display font-bold">Let's Connect</p>
+            <p class="mt-3 text-slate-300 max-w-xl mx-auto">I'm actively seeking Software Engineering internship opportunities and would love to hear from you.</p>
+            <div class="mt-8">
+                <a href="mailto:adamgarantche612@gmail.com" class="inline-block bg-teal-500 text-white font-medium py-3 px-7 rounded-full hover:bg-teal-400 transition-colors">adamgarantche612@gmail.com</a>
             </div>
-            <div class="mt-6 text-sm text-slate-400">
+            <div class="mt-8 flex justify-center space-x-5">
+                <a href="https://www.linkedin.com/in/adam-garantche" target="_blank" rel="noopener" aria-label="LinkedIn profile" class="text-slate-400 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="https://github.com/Agarantche" target="_blank" rel="noopener" aria-label="GitHub profile" class="text-slate-400 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+            </div>
+            <div class="mt-10 text-sm text-slate-500">
                 &copy; <span id="year"></span> Adam Garantche. All Rights Reserved.
             </div>
         </div>
@@ -327,15 +456,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            
+
             mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
+                const isHidden = mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', String(!isHidden));
             });
 
             document.querySelectorAll('#mobile-menu a, header nav a.nav-link').forEach(link => {
                 link.addEventListener('click', (e) => {
-                    if (link.closest('#mobile-menu')) { 
+                    if (link.closest('#mobile-menu')) {
                         mobileMenu.classList.add('hidden');
+                        mobileMenuButton.setAttribute('aria-expanded', 'false');
                     }
                     const targetId = link.getAttribute('href').substring(1);
                     const targetElement = document.getElementById(targetId);
@@ -344,7 +475,7 @@
                         const headerOffset = document.getElementById('header').offsetHeight;
                         const elementPosition = targetElement.getBoundingClientRect().top;
                         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                        
+
                         window.scrollTo({
                             top: offsetPosition,
                             behavior: "smooth"
@@ -352,6 +483,22 @@
                     }
                 });
             });
+
+            // Scroll-entrance reveal (respects prefers-reduced-motion via CSS)
+            const revealEls = document.querySelectorAll('.reveal');
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+                revealEls.forEach(el => observer.observe(el));
+            } else {
+                revealEls.forEach(el => el.classList.add('visible'));
+            }
 
             const skillsChartCtx = document.getElementById('skillsChart').getContext('2d');
             const skillsChart = new Chart(skillsChartCtx, {
@@ -361,8 +508,8 @@
                     datasets: [{
                         label: 'Skill Level (Self-Assessed)',
                         data: [9, 8, 8, 8, 7, 7],
-                        backgroundColor: 'rgba(20, 184, 166, 0.2)', 
-                        borderColor: 'rgba(13, 148, 136, 1)', 
+                        backgroundColor: 'rgba(20, 184, 166, 0.2)',
+                        borderColor: 'rgba(13, 148, 136, 1)',
                         pointBackgroundColor: 'rgba(13, 148, 136, 1)',
                         pointBorderColor: '#fff',
                         pointHoverBackgroundColor: '#fff',
@@ -373,25 +520,16 @@
                     maintainAspectRatio: false,
                     scales: {
                         r: {
-                            angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
-                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
-                            pointLabels: { font: { size: 14, family: 'Inter' }, color: '#334155' },
-                            ticks: { beginAtZero: true, max: 10, stepSize: 2, backdropColor: 'rgba(255, 255, 255, 0.75)', color: '#64748b'}
+                            angleLines: { color: 'rgba(0, 0, 0, 0.08)' },
+                            grid: { color: 'rgba(0, 0, 0, 0.08)' },
+                            pointLabels: { font: { size: 14, family: 'Inter', weight: '500' }, color: '#334155' },
+                            ticks: { beginAtZero: true, max: 10, stepSize: 2, backdropColor: 'rgba(250, 250, 249, 0.75)', color: '#64748b'}
                         }
                     },
                     plugins: {
                         legend: { display: false },
                         tooltip: { callbacks: { label: function(context) { return `Level: ${context.raw}/10`; } } }
                     }
-                }
-            });
-
-            const projectCards = document.querySelectorAll('.project-card');
-            projectCards.forEach(card => {
-                if (card.querySelector('.details')) { 
-                    card.addEventListener('click', () => {
-                        card.classList.toggle('open');
-                    });
                 }
             });
 
@@ -402,7 +540,7 @@
                 let current = '';
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
-                    if (pageYOffset >= sectionTop - document.getElementById('header').offsetHeight - 10) { 
+                    if (pageYOffset >= sectionTop - document.getElementById('header').offsetHeight - 10) {
                         current = section.getAttribute('id');
                     }
                 });
@@ -416,8 +554,8 @@
                 });
             }
             window.addEventListener('scroll', updateActiveNavLink);
-            updateActiveNavLink(); 
-            
+            updateActiveNavLink();
+
             document.getElementById('year').textContent = new Date().getFullYear();
         });
     </script>
